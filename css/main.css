@@ -1,0 +1,47 @@
+#header {
+    text-align: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  #body {
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+
+  #form {
+    width: 80%;
+    margin: auto;
+  }
+  
+  #form label {
+    display: block;
+    margin: 10px 0;
+  }
+  
+  #form input[type="text"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  #form input[type="submit"] {
+    width: 100%;
+    background-color: rgb(122, 182, 250);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #form input[type="submit"]:hover {
+    background-color: rgb(97, 221, 255);
+  }
+  

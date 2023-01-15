@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>Sample Table</title>
+  </head>
+  <body>
+    <table id="myTable">
+      <tr>
+        <th>Column 1</th>
+        <th>Column 2</th>
+        <th>Column 3</th>
+        <th></th>
+      </tr>
+    </table>
+    <script>
+      // Get a reference to the table
+      const table = document.getElementById("myTable");
+
+      // Generate a random number between 1 and 10
+      function getRandomNumber() {
+        return Math.floor(Math.random() * 10) + 1;
+      }
+
+      // Add a row to the table with random numbers
+      function addRow(row) {
+        // Generate random numbers for the row
+        const cells = [];
+        for (let i = 0; i < 3; i++) {
+          cells.push(getRandomNumber());
+        }
+      
+        // Create the button cell and button element
+        const buttonCell = document.createElement("td");
+        const button = document.createElement("button");
+        button.textContent = "Regenerate";
+      
+        // Add an event listener to the button to handle the click event
+        button.addEventListener("click", () => {
+            // Update the cells with new random numbers
+            for (let i = 0; i < 3; i++) {
+              row.cells[i].textContent = getRandomNumber();
+            }
+          });
+      
+        // Append the button to the button cell and the cells and button cell to the row
+        buttonCell.appendChild(button);
+        for (const cell of cells) {
+          const newCell = document.createElement("td");
+          newCell.textContent = cell;
+          row.appendChild(newCell);
+        }
+        row.appendChild(buttonCell);
+        table.appendChild(row);
+      }
+      
+
+      // Add 4 rows to the table
+      for (let i = 0; i < 4; i++) {
+        const row = document.createElement("tr");
+        addRow(row);
+      }
+    </script>
+  </body>
+</html>
