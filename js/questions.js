@@ -18,7 +18,8 @@ async function generateQuestion(category) {
         "model": "text-davinci-003",
         "prompt": `Generate one advanced certification exam question 
                     about ${category} based in real world production
-                     issues or code challenges. Questions should be of multiple choice option type and always have 4 options`,
+                     issues or code challenges. Questions should be
+                      of multiple choice option type and always have 4 options`,
         "temperature": 0.7,
         "max_tokens": 512,
         "top_p": 1.0,
@@ -36,7 +37,7 @@ async function generateAnswer(question) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${AUTHORIZATION_TOKEN}`,
+      "Authorization": `Bearer ${apikey}`,
     },
     body: JSON.stringify({
         "model": "text-davinci-003",
