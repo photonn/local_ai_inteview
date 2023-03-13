@@ -1,9 +1,9 @@
 const API_ENDPOINT = "https://api.openai.com/v1/completions";
-const AUTHORIZATION_TOKEN = "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";
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const numQuestions = urlParams.get("numQuestions");
+const apikey = urlParams.get("apikey");
 const categories = urlParams.get("categories").split(",");
 const table = document.getElementById("table");
 
@@ -12,13 +12,13 @@ async function generateQuestion(category) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${AUTHORIZATION_TOKEN}`,
+      "Authorization": `Bearer ${apikey}`,
     },
     body: JSON.stringify({
         "model": "text-davinci-003",
         "prompt": `Generate one advanced certification exam question 
                     about ${category} based in real world production
-                     issues or code challenges`,
+                     issues or code challenges. Questions should be of multiple choice option type and always have 4 options`,
         "temperature": 0.7,
         "max_tokens": 512,
         "top_p": 1.0,
