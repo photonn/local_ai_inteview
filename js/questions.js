@@ -20,7 +20,7 @@ async function generateQuestion(category) {
                     about ${category} based in real world production
                      issues or code challenges. Questions should be
                       of multiple choice option type and always have 4 options`,
-        "temperature": 0.7,
+        "temperature": 0.2,
         "max_tokens": 512,
         "top_p": 1.0,
         "frequency_penalty": 0.0,
