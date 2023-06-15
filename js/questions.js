@@ -1,4 +1,4 @@
-const API_ENDPOINT = "https://api.openai.com/v1/completions";
+const API_ENDPOINT = "https://api.openai.com/v1/chat/completions";
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
@@ -15,21 +15,20 @@ async function generateQuestion(category) {
       "Authorization": `Bearer ${apikey}`,
     },
     body: JSON.stringify({
-        "model": "text-davinci-003",
-        "prompt": `Generate one advanced certification exam question 
-                    about ${category} based in real world production
-                     issues or code challenges. Questions should be
-                      of multiple choice option type and always have 4 options`,
-        "temperature": 0.2,
-        "max_tokens": 512,
-        "top_p": 1.0,
-        "frequency_penalty": 0.0,
-        "presence_penalty": 0.0,
-        "echo": false
+      "model": "gpt-3.5-turbo",
+      "messages": [
+                    {"role": "system", "content": "You are a skilled certification trainer."},
+                    {"role": "user", "content": `Generate one advanced certification exam question 
+                    about ${category} based in real world production 
+                    issues or code challenges. Questions should be 
+                    of multiple choice option type and always have 4 options`}
+                  ],
+      "temperature": 0.2
     }),
   });
   const data = await response.json();
-  return data.choices[0].text;
+  console.log(data);
+  return data.choices[0].message.content;
 }
 
 async function generateAnswer(question) {
@@ -40,18 +39,17 @@ async function generateAnswer(question) {
       "Authorization": `Bearer ${apikey}`,
     },
     body: JSON.stringify({
-        "model": "text-davinci-003",
-        "prompt": `Generate an answer for this question: ${question}.`,
-        "temperature": 0.7,
-        "max_tokens": 512,
-        "top_p": 1.0,
-        "frequency_penalty": 0.0,
-        "presence_penalty": 0.0,
-        "echo": false
+      "model": "gpt-3.5-turbo",
+      "messages": [
+                    {"role": "system", "content": "You are a skilled certification trainer."},
+                    {"role": "user", "content": `Generate an answer for this question: ${question}`}
+                  ],
+      "temperature": 0.2
     }),
   });
   const data = await response.json();
-  return data.choices[0].text;
+  console.log(data);
+  return data.choices[0].message.content;
 }
 
 function addRow(category, question, answer) {
