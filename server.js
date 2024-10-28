@@ -6,8 +6,18 @@ require('dotenv').config();
 const app = express();
 const port = 3000;
 
-const API_ENDPOINT = "https://<your-azure-openai-endpoint>.openai.azure.com/openai/deployments/gpt-4o-mini/completions?api-version=2022-12-01";
+const API_ENDPOINT = process.env.API_ENDPOINT;
 const AUTHORIZATION_TOKEN = process.env.AZURE_OPENAI_API_KEY;
+
+if (!API_ENDPOINT) {
+  console.error("Error: API_ENDPOINT is not defined in the environment variables.");
+  process.exit(1);
+}
+
+if (!AUTHORIZATION_TOKEN){
+  console.error("Error: AUTHORIZATION_TOKEN is not defined in the environment variables.");
+  process.exit(1);
+}
 
 app.use(bodyParser.json());
 

@@ -15,9 +15,10 @@ This project generates interview questions based on user input. The user can spe
    npm install
    ```
 
-3. Create a `.env` file in the root directory and add your Azure OpenAI API key:
+3. Create a `.env` file in the root directory and add your Azure OpenAI API key and API endpoint:
    ```
    AZURE_OPENAI_API_KEY=your_azure_openai_api_key
+   API_ENDPOINT=your_api_endpoint
    ```
 
 4. Start the server:
