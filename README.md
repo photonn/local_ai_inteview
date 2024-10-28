@@ -1,6 +1,6 @@
 # Interview Question Generator
 
-This project generates interview questions based on user input. The user can specify the number of questions per category and the categories they want to generate questions for. The project will use AI from OpenAI to generate questions and answers. You will need an OpenAI API key to use this project.
+This project generates interview questions based on user input. The user can specify the number of questions per category and the categories they want to generate questions for. The project will use AI from Azure OpenAI to generate questions and answers. You will need an Azure OpenAI API key to use this project.
 
 ## Usage
 
@@ -15,9 +15,9 @@ This project generates interview questions based on user input. The user can spe
    npm install
    ```
 
-3. Create a `.env` file in the root directory and add your OpenAI API key:
+3. Create a `.env` file in the root directory and add your Azure OpenAI API key:
    ```
-   OPENAI_API_KEY=your_openai_api_key
+   AZURE_OPENAI_API_KEY=your_azure_openai_api_key
    ```
 
 4. Start the server:
@@ -43,4 +43,4 @@ This project generates interview questions based on user input. The user can spe
 - `css/questions.css`: Stylesheet for `questions.html`.
 - `js/index.js`: JavaScript file that handles user input and generates interview questions on `main.html`.
 - `js/questions.js`: JavaScript file that displays generated interview questions on `questions.html`.
-- `server.js`: Server-side code that handles requests for generating questions and answers using the OpenAI API.
+- `server.js`: Server-side code that handles requests for generating questions and answers using the Azure OpenAI API and `gpt-4o-mini` model.
