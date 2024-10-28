@@ -1,12 +1,13 @@
 const express = require('express');
 const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 
 const app = express();
 const port = 3000;
 
-const API_ENDPOINT = "https://api.openai.com/v1/completions";
-const AUTHORIZATION_TOKEN = "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";
+const API_ENDPOINT = "https://<your-azure-openai-endpoint>.openai.azure.com/openai/deployments/gpt-4o-mini/completions?api-version=2022-12-01";
+const AUTHORIZATION_TOKEN = process.env.AZURE_OPENAI_API_KEY;
 
 app.use(bodyParser.json());
 
@@ -18,7 +19,7 @@ async function generateQuestion(category) {
       "Authorization": `Bearer ${AUTHORIZATION_TOKEN}`,
     },
     body: JSON.stringify({
-        "model": "text-davinci-003",
+        "model": "gpt-4o-mini",
         "prompt": `Generate one advanced certification exam question 
                     about ${category} based in real world production
                      issues or code challenges`,
@@ -42,7 +43,7 @@ async function generateAnswer(question) {
       "Authorization": `Bearer ${AUTHORIZATION_TOKEN}`,
     },
     body: JSON.stringify({
-        "model": "text-davinci-003",
+        "model": "gpt-4o-mini",
         "prompt": `Generate an answer for this question: ${question}.`,
         "temperature": 0.7,
         "max_tokens": 512,
