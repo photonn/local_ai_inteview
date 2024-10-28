@@ -45,3 +45,7 @@ This project generates interview questions based on user input. The user can spe
 - `js/index.js`: JavaScript file that handles user input and generates interview questions on `main.html`.
 - `js/questions.js`: JavaScript file that displays generated interview questions on `questions.html`.
 - `server.js`: Server-side code that handles requests for generating questions and answers using the Azure OpenAI API and `gpt-4o-mini` model.
+
+## .gitignore
+
+The `.gitignore` file has been updated to include common entries for Node.js projects, such as `node_modules/`, `dist/`, `*.log`, and retains the existing entry for `.env`.
