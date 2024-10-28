@@ -92,6 +92,11 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/main.html');
 });
 
+// Serve questions.html at the /questions URL
+app.get('/questions.html', (req, res) => {
+  res.sendFile(__dirname + '/questions.html');
+});
+
 // Serve static files from the css and js directories
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/js', express.static(__dirname + '/js'));
