@@ -26,7 +26,7 @@ This project generates interview questions based on user input. The user can spe
    node server.js
    ```
 
-5. Open `main.html` in your browser.
+5. Open your browser and navigate to `http://localhost:3000`.
 
 6. Enter the number of questions per category in the "Number of questions per category" field.
 

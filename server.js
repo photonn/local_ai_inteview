@@ -87,6 +87,15 @@ app.post('/generateAnswer', async (req, res) => {
   }
 });
 
+// Serve main.html at the root URL
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/main.html');
+});
+
+// Serve static files from the css and js directories
+app.use('/css', express.static(__dirname + '/css'));
+app.use('/js', express.static(__dirname + '/js'));
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
