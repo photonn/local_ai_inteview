@@ -1,56 +1,8 @@
-const API_ENDPOINT = "https://api.openai.com/v1/chat/completions";
-
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const numQuestions = urlParams.get("numQuestions");
-const apikey = urlParams.get("apikey");
 const categories = urlParams.get("categories").split(",");
 const table = document.getElementById("table");
-
-async function generateQuestion(category) {
-  const response = await fetch(API_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${apikey}`,
-    },
-    body: JSON.stringify({
-      "model": "gpt-3.5-turbo",
-      "messages": [
-                    {"role": "system", "content": "You are a skilled certification trainer."},
-                    {"role": "user", "content": `Generate one advanced certification exam question 
-                    about ${category} based in real world production 
-                    issues or code challenges. Questions should be 
-                    of multiple choice option type and always have 4 options`}
-                  ],
-      "temperature": 0.2
-    }),
-  });
-  const data = await response.json();
-  console.log(data);
-  return data.choices[0].message.content;
-}
-
-async function generateAnswer(question) {
-  const response = await fetch(API_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${apikey}`,
-    },
-    body: JSON.stringify({
-      "model": "gpt-3.5-turbo",
-      "messages": [
-                    {"role": "system", "content": "You are a skilled certification trainer."},
-                    {"role": "user", "content": `Generate an answer for this question: ${question}`}
-                  ],
-      "temperature": 0.2
-    }),
-  });
-  const data = await response.json();
-  console.log(data);
-  return data.choices[0].message.content;
-}
 
 function addRow(category, question, answer) {
   const row = document.createElement("tr");
@@ -73,8 +25,8 @@ function addRow(category, question, answer) {
     // Regenerate the question and answer for the row
     row.cells[1].textContent = "Generating..."
     row.cells[2].textContent = "Generating..."
-    row.cells[1].textContent = await generateQuestion(row.cells[0].textContent);
-    row.cells[2].textContent  = await generateAnswer(row.cells[1].textContent);
+    row.cells[1].textContent = await fetchQuestion(row.cells[0].textContent);
+    row.cells[2].textContent  = await fetchAnswer(row.cells[1].textContent);
   });
 
   // Append the button to the button cell and the button cell to the row
@@ -86,14 +38,37 @@ function addRow(category, question, answer) {
   table.appendChild(row);
 }
 
+async function fetchQuestion(category) {
+  const response = await fetch("/generateQuestion", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ category }),
+  });
+  const { question } = await response.json();
+  return question;
+}
+
+async function fetchAnswer(question) {
+  const response = await fetch("/generateAnswer", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ question }),
+  });
+  const { answer } = await response.json();
+  return answer;
+}
 
 async function getQuestions() {
   for (let i = 0; i < categories.length; i++) {
     const category = categories[i];
     for (let j = 0; j < numQuestions; j++) {
       try {
-        const question = await generateQuestion(category);
-        const answer = await generateAnswer(question);
+        const question = await fetchQuestion(category);
+        const answer = await fetchAnswer(question);
         addRow(category, question, answer);
       } catch (error) {
         console.error(error);
@@ -101,6 +76,5 @@ async function getQuestions() {
     }
   }
 }
-  
+
 getQuestions();
-  
